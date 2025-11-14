@@ -141,3 +141,86 @@ INSERT INTO territories_definition
 ('무기카드', '무기카드', 0, 0, NULL),
 -- 20 강대국
 ('강대국', '강대국', 10, 5, '강대국');
+
+
+INSERT INTO Game_Territory_States (session_id, territory_id, owner_id, has_building)
+SELECT 1, territory_id, NULL, 0
+FROM territories_definition;
+
+SELECT * FROM territories_definition;
+
+SELECT * FROM Game_Territory_States WHERE session_id = 1
+
+
+ALTER TABLE Territories_Definition
+ADD COLUMN tile_subtype VARCHAR(20) NULL;
+
+UPDATE Territories_Definition SET tile_subtype = '출발' WHERE territory_id = 1;
+UPDATE Territories_Definition SET tile_subtype = '무인도' WHERE territory_id = 6;
+UPDATE Territories_Definition SET tile_subtype = '침묵' WHERE territory_id = 11;
+UPDATE Territories_Definition SET tile_subtype = '강탈' WHERE territory_id = 16;
+
+INSERT INTO Game_Territory_States (session_id, territory_id, owner_id, has_building)
+SELECT 1, territory_id, NULL, 0
+FROM territories_definition;
+
+SELECT * FROM Game_Territory_States WHERE session_id = 1;
+
+DELETE FROM game_territory_states
+WHERE session_id = 1;
+
+INSERT INTO Player_States
+(session_id, user_id, empire_hp, coin, board_position)
+VALUES
+(1, 1, 20, 20, 1),
+(1, 2, 20, 20, 1);
+
+SELECT * FROM Player_States WHERE session_id = 1;
+
+DELETE FROM Player_States
+WHERE session_id = 1;
+
+INSERT INTO Player_Inventories (session_id, user_id, weapon_id)
+VALUES (1, 1, 1);
+
+SELECT * FROM player_inventories;
+
+DELETE FROM Player_Inventories
+WHERE session_id = 1;
+
+UPDATE Player_States
+SET board_position = 4
+WHERE session_id = 1 AND user_id = 1;
+
+SELECT tile_type, tile_subtype, territory_grade, territory_price, territory_toll
+FROM Territories_Definition
+WHERE territory_id = 4; 
+
+SELECT territory_id, tile_type 
+FROM Territories_Definition 
+ORDER BY territory_id;
+
+SELECT territory_id, tile_subtype 
+FROM Territories_Definition
+ORDER BY territory_id;
+
+-- 출발
+UPDATE Territories_Definition SET tile_subtype = '출발' WHERE territory_id = 1;
+
+-- 약소국
+UPDATE Territories_Definition SET tile_subtype = '약소국' WHERE territory_id IN (2, 3, 7, 8, 12, 13, 17, 18);
+
+-- 무기
+UPDATE Territories_Definition SET tile_subtype = '무기' WHERE territory_id IN (4, 9, 14, 19);
+
+-- 강대국
+UPDATE Territories_Definition SET tile_subtype = '강대국' WHERE territory_id IN (5, 10, 15, 20);
+
+-- 특수칸
+UPDATE Territories_Definition SET tile_subtype = '무인도' WHERE territory_id = 6;
+UPDATE Territories_Definition SET tile_subtype = '침묵' WHERE territory_id = 11;
+UPDATE Territories_Definition SET tile_subtype = '강탈' WHERE territory_id = 16;
+
+SELECT territory_id, tile_subtype
+FROM Territories_Definition
+ORDER BY territory_id;
