@@ -59,3 +59,85 @@ winner_id INT,
 damage_log TEXT,
 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+ALTER TABLE Territories_Definition
+ADD COLUMN tile_type ENUM('영토', '무기', '출발', '특수') DEFAULT '영토';
+
+INSERT INTO Territories_Definition (territory_NAME, territory_price, territory_toll, territory_grade) VALUES
+-- 강대국 4개
+('미국', 5, 5, '강대국'),
+('중국', 5, 5, '강대국'),
+('러시아', 5, 5, '강대국'),
+('한국', 5, 5, '강대국'),
+
+-- 약소국 8개
+('북한', 1, 1, '약소국'),
+('몽골', 1, 1, '약소국'),
+('소말리아', 1, 1, '약소국'),
+('이라크', 1, 1, '약소국'),
+('이란', 1, 1, '약소국'),
+('쿠바', 1, 1, '약소국'),
+('몰디브', 1, 1, '약소국'),
+('아프가니스탄', 1, 1, '약소국');
+
+SELECT * FROM territories_definition;
+
+INSERT INTO Weapons (weapon_name, weapon_damage, weapon_desc)
+VALUES
+('검', 1, '기본 근접 무기'),
+('활', 2, '중거리 공격 무기'),
+('총', 3, '명중률 높은 원거리 무기'),
+('수류탄', 5, '광범위 고폭발 무기');
+
+TRUNCATE TABLE territories_definition;
+
+	ALTER TABLE Territories_Definition
+	MODIFY territory_price INT NOT NULL DEFAULT 0,
+	MODIFY territory_toll  INT NOT NULL DEFAULT 0;
+
+		ALTER TABLE Territories_Definition
+		MODIFY territory_grade ENUM('약소국','강대국') NULL;
+		
+		ALTER TABLE Territories_Definition
+MODIFY tile_type ENUM('영토','무기','특수','출발') NOT NULL;
+
+INSERT INTO territories_definition 
+(territory_NAME, territory_price, territory_toll, territory_grade, tile_type) VALUES
+('출발', NULL, NULL, NULL, '출발'),
+('약소국1', 1, 1, '약소국', '영토'),
+('약소국2', 1, 1, '약소국', '영토'),
+('무기', NULL, NULL, NULL, '무기'),
+('강대국1', 5, 5, '강대국', '영토'),
+('무인도', NULL, NULL, NULL, '특수'),
+('약소국3', 1, 1, '약소국', '영토'),
+('약소국4', 1, 1, '약소국', '영토'),
+('무기', NULL, NULL, NULL, '무기'),
+('강대국2', 5, 5, '강대국', '영토'),
+('침묵', NULL, NULL, NULL, '특수'),
+('약소국5', 1, 1, '약소국', '영토'),
+('약소국6', 1, 1, '약소국', '영토'),
+('무기', NULL, NULL, NULL, '무기'),
+('강대국3', 5, 5, '강대국', '영토'),
+('강탈', NULL, NULL, NULL, '특수'),
+('약소국7', 1, 1, '약소국', '영토'),
+('약소국8', 1, 1, '약소국', '영토'),
+('무기', NULL, NULL, NULL, '무기'),
+('강대국4', 5, 5, '강대국', '영토');
+-- 12 약소국
+('약소국', '약소국', 5, 1, '약소국'),
+-- 13 약소국
+('약소국', '약소국', 5, 1, '약소국'),
+-- 14 무기카드
+('무기카드', '무기카드', 0, 0, NULL),
+-- 15 강대국
+('강대국', '강대국', 10, 5, '강대국'),
+-- 16 강탈
+('강탈', 'special', 0, 0, NULL),
+-- 17 약소국
+('약소국', '약소국', 5, 1, '약소국'),
+-- 18 약소국
+('약소국', '약소국', 5, 1, '약소국'),
+-- 19 무기카드
+('무기카드', '무기카드', 0, 0, NULL),
+-- 20 강대국
+('강대국', '강대국', 10, 5, '강대국');
